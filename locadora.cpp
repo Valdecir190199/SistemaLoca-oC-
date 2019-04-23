@@ -6,7 +6,7 @@
 using namespace std;
 
 struct Acervo{
-      int id;
+      int codigo ;
       string nome;
       float preco;
       int qtde;
@@ -23,8 +23,8 @@ void inserirAcervo (){
       cout << "Cadastro de Acervo: \n";
       cout << "------------------------ \n";
   
-      cout << "Cadastre o id do item: \n";
-            cin >> acervo.id;
+      cout << "Cadastre o id do item: \n";          
+            cin >> acervo.codigo;
 
       cout << "Cadastre o nome: \n";
             cin >> acervo.nome;
@@ -47,7 +47,7 @@ void mostrarAcervo(list<Acervo>listaAcervo){
           
             cout << ".........................: \n" ;
             
-            cout << "ID: "   << (*it).id << endl;
+            cout << "ID: "   << (*it).codigo << endl;
             cout << "Nome: "  << (*it).nome << endl;       
             cout << "Preço: "   << (*it).preco << endl;
             cout << "Quantidade: "   << (*it).qtde << endl;
@@ -61,26 +61,53 @@ void mostrarAcervo(list<Acervo>listaAcervo){
 }
 
 
-void excluirAcervo ()
+void excluirAcervo (list<Acervo>& listAcervo)
 {
 
-      int idd = 1;
+     int codigo;
+  list<Acervo>::iterator it;
 
-      Acervo acervo;
+  cout << "Informe o código do item: ";
+  cin >> codigo;
+  cout << endl;
 
-      list<Acervo>::iterator it1;
+  for(it = listAcervo.begin(); it != listAcervo.end(); it++){
+    if(it->codigo == codigo){
+      listAcervo.erase(it);
+      break;
+    }
+  }
 
-      it1 =  listaAcervo.begin();
-
-      it1 = listaAcervo.erase(it1);
+cout << "Item removido!" << endl;
       
     
 
 }
 
 
+
+void itensNLocados(list<Acervo>listaAcervo)
+{
+
+
+ for (list<Acervo>::iterator it=listaAcervo.begin(); it != listaAcervo.end(); ++it){
+
+          
+            cout << ".........................: \n" ;
+            
+            cout << "ID: "   << (*it).codigo << endl;
+            cout << "Nome: "  << (*it).nome << endl;       
+            cout << "Preço: "   << (*it).preco << endl;
+            cout << "Quantidade: "   << (*it).qtde << endl;
+            cout << ".........................: \n" ;
+            cout << ".........................: \n" ;
+      }
+
+}
+
+
 struct Cliente{
-      int id;
+      int codigo;
       string nome;
       int idade;
 };
@@ -95,7 +122,7 @@ void inserirCliente (){
       cout << "------------------------ \n";
   
       cout << "Cadastre o id do cliente: \n";
-            cin >> cliente.id;
+            cin >> cliente.codigo;
 
       cout << "Cadastre o nome: \n";
             cin >> cliente.nome;
@@ -115,7 +142,7 @@ void mostrarCliente(list<Cliente>listaCliente){
 
        
             cout << ".........................: \n" ;
-            cout << "ID: "   << (*it).id << endl;
+            cout << "ID: "   << (*it).codigo << endl;
             cout << "Nome: "   << (*it).nome << endl;       
             cout << "Idade: "  << (*it).idade << endl;
             cout << ".........................: \n" ;
@@ -123,61 +150,84 @@ void mostrarCliente(list<Cliente>listaCliente){
          
       }
 
-
-
-
 }
 
 
-void excluirCliente ()
+void excluirCliente (list<Cliente>& listCliente)
 {
 
-      int idd = 1;
+ 
+     int codigo;
+  list<Cliente>::iterator it;
 
-      Cliente cliente;
+  cout << "Informe o código do Cliente: ";
+  cin >> codigo;
+  cout << endl;
 
-      list<Cliente>::iterator it1;
+  for(it = listCliente.begin(); it != listCliente.end(); it++){
+    if(it->codigo == codigo){
+      listCliente.erase(it);
+      break;
+    }
+  }
 
-      it1 =  listaCliente.begin();
-
-      it1 = listaCliente.erase(it1);
+cout << "Item removido!" << endl;
       
+    
     
 
 }
 
 
 struct Locacao{
-      int id;
-      Acervo acervo;
-      Cliente cliente;
+      int codigo;
+     
+      double valorLocacao;
       
 
 };
 
-list<Locacao>listaLocacao;
 
+void locar (){
 
-void Locar (Acervo acervo, Cliente cliente){
-      Locacao locacao;
+    Locacao locacao;
+    Acervo acervo;
+    Cliente cliente;
 
-       
-      cout << "Cadastro de Acervo: \n";
-      cout << "------------------------ \n";
-  
-      cout << "Cadastre o id do item: \n";
-            cin >> acervo.id;
+    list<Cliente> listaCliente;
+    list<Acervo>listaAcervo;
+    list<Locacao>listaLocacao;
 
-      cout << "Cadastre o nome: \n";
-            cin >> acervo.nome;
+    int codigo;
+   
+        cout << "Locação\n";       
+    
+   
+        cout << "Digite o codigo do Item\n";
+
+        cin >> acervo.codigo;
+
+        
+        
+        cout << "Digite o codigo do Cliente\n";
+
+        cin >> cliente.codigo;
+
       
-      cout << "Cadastre o preço: \n";
-            cin >> acervo.preco;
-      
-      cout << "Cadastre a quantidade: \n";
-            cin >> acervo.qtde;
+         cout << acervo.codigo << "\n";
+         cout << acervo.nome << "\n";
+         cout << acervo.preco << "\n";
+         cout << acervo.qtde << "\n";
 
-            listaAcervo.push_back(acervo);
+        
+         cout << cliente.codigo << "\n";
+         cout << cliente.nome << "\n";
+         cout << cliente.idade << "\n";
+        
+
+         listaLocacao.push_back(locacao);
+    
+               
 
 }
 
@@ -188,11 +238,7 @@ int main ()
 int opcao;
 
 do{
-
-    
-    
-    
-
+           
     cout << "Cliente: 1 \n";
     cout << "Acervo: 2 \n";
     cout << "Locação: 3 \n";
@@ -202,10 +248,6 @@ do{
     cin >> opcao;
 
     if(opcao == 1){
-
-
-        
-        
         cout << "Cadastrar: 1 \n";
         cout << "Excluir: 2 \n";
         cout << "Modificar: 3 \n";
@@ -222,7 +264,7 @@ do{
             
         }else if (opcao == 2) {
         
-            excluirCliente();
+            excluirCliente(listaCliente);
             
 
         }else if (opcao == 4){
@@ -239,6 +281,7 @@ do{
         cout << "Excluir: 2 \n";
         cout << "Modificar: 3 \n";
         cout << "Visualizar: 4 \n";
+        cout << "Visualizar itens não Locados: 5 \n";
 
         int opcao;
 
@@ -250,7 +293,7 @@ do{
 
         }else if (opcao == 2){
 
-            excluirAcervo();
+            excluirAcervo(listaAcervo);
             
         }else if (opcao == 3){
 
@@ -260,18 +303,25 @@ do{
             cout << "Descrição dos Itens: \n" ;
             mostrarAcervo(listaAcervo);
         
+        }else if (opcao == 5){
+            cout << "Descrição dos Itens Não Locados: \n" ;
+            itensNLocados(listaAcervo);
+        
         }
 
     }else if (opcao == 3) {
         
         cout << "Cadastrar: 1 \n";
-        cout << "Excluir: 2 \n";
-        cout << "Modificar: 3 \n";
-        cout << "Visualizar: 4 \n";   
-
+      
         int opcao;
 
         cin >> opcao;
+
+        if(opcao == 1){
+
+            locar();
+
+        }
 
     }else{
 
@@ -280,20 +330,8 @@ do{
 
 }while(opcao !=0);
 
-/*
-  
-    inserir();
-    excluir();
-    mostrar(listaAcervo);
 
-*/
 
 return 0;
 }
-
-
-
-
-
-
 
