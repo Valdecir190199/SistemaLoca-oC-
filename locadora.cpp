@@ -139,8 +139,8 @@ void inserirCliente (){
 void mostrarCliente(list<Cliente>listaCliente){
       
       for (list<Cliente>::iterator it=listaCliente.begin(); it != listaCliente.end(); ++it){
-
-       
+            
+          
             cout << ".........................: \n" ;
             cout << "ID: "   << (*it).codigo << endl;
             cout << "Nome: "   << (*it).nome << endl;       
@@ -183,7 +183,9 @@ cout << "Item removido!" << endl;
 struct Locacao{ 
    
     Acervo *acervo;
-    Cliente *cliente; 
+    Cliente *cliente;
+    int qtde;
+    float valorLocacao; 
    
 };
 list<Locacao>listaLocacao;
@@ -193,17 +195,9 @@ void locar (){
 
     Cliente *c;    
     Acervo *a;
+    Locacao locacao;
 
-    Locacao locacao;   
-    Acervo acervo;        
- 
-
-     int codigo, codigos;
-    list<Cliente>::iterator it;
-
-   
-    list<Acervo>::iterator its;
-
+    int codigo, codigos;
 
     cout << "Informe o código do Cliente: ";
     cin >> codigo;
@@ -213,40 +207,44 @@ void locar (){
     cin >> codigos;
     cout << endl;
 
+    cout << "Informe a qtde: ";
+    cin >> locacao.qtde;
+    cout << endl;
+
     c = NULL;
     a = NULL;
 
+    
+    list<Cliente>::iterator it;
+
+    list<Acervo>::iterator its;
+    
   for(it = listaCliente.begin(); it != listaCliente.end(); it++){
     if(it->codigo == codigo){
       
         
-        c = &(*it);
+        c  = &(*it);
+         locacao.cliente = c;
+           
 
-
-       
-        
       break;
     }
   }
 
 for(its = listaAcervo.begin(); its != listaAcervo.end(); its++){
-    if(its->codigo == codigo){
-
-        
+    if(its->codigo == codigos){
+       
         a = &(*its);
-
+       locacao.acervo = a;
+       locacao.valorLocacao = (locacao.qtde * a -> preco);
+       a -> qtde =  ( a-> qtde ) - (locacao.qtde);
       break;
     }
 
-
   }
-
-        if (c != NULL){
         
-                    
-
-       
-                   
+    
+                   cout << "Cliente cadastrado com sucesso \n";
   
                     cout << " id do cliente: \n" << c -> codigo << endl  ;
                    
@@ -258,13 +256,13 @@ for(its = listaAcervo.begin(); its != listaAcervo.end(); its++){
                   
                     cout << ".........................: \n" ;
 
-            if (a != NULL){
+          
 
                  
 
        
-                 
-  
+                  cout << "Acervo cadastrado com sucesso \n";
+                    
                   cout << "id do item: \n"  << a -> codigo << endl  ;          
                   
 
@@ -278,35 +276,38 @@ for(its = listaAcervo.begin(); its != listaAcervo.end(); its++){
                     
 
                   cout << ".........................: \n" ; 
-
                 
-
-            }
-
-                 
-        }
-
-                   cout << "Cliente selecionado --> "
-                << locacao.cliente->codigo << " - "
-                << locacao.cliente->nome << " - "
-                << locacao.cliente->idade
-                << endl;
-                cout << "" << endl;
-                    
-
-              cout << "Acervo selecionado --> "
-                << acervo.acervo->codigo << " - "
-                << acervo.acervo->nome << " - "
-                << acervo.acervo->preco << " - "
-                << acervo.acervo->qtde
-                << endl;
-                cout << "" << endl;
- 
             
+                 
+        
+
             
          listaLocacao.push_back(locacao);
+
+}
+
+void listarLocacoes(list<Locacao>& listaLocacao)
+{
+  list<Locacao>::iterator it;
+
+  cout << "--------------- Locações realizadas ---------------" << endl;
+
+  for(list<Locacao>::iterator it = listaLocacao.begin(); it != listaLocacao.end(); it++){
+    cout  << " - "
+    << it->cliente->nome << " - "
+    << it->acervo->nome << " - "
+    << endl;
+
+         cout << ".........................: \n" ;
+            cout << "Quantidade : "   << (*it).qtde << endl;
+            cout << "Valor Total: "   << (*it).valorLocacao << endl;       
+            cout << ".........................: \n" ;
          
-               
+
+     
+
+    }
+
 
 }
 
@@ -317,7 +318,7 @@ int main ()
 int opcao;
 
 do{
-           
+    cout << "Bem Vindo a Locadora Matrix \n" ;       
     cout << "Cliente: 1 \n";
     cout << "Acervo: 2 \n";
     cout << "Locação: 3 \n";
@@ -391,6 +392,7 @@ do{
     }else if (opcao == 3) {
         
         cout << "Cadastrar: 1 \n";
+        cout << "Listar Locações 2 \n";
       
         int opcao;
 
@@ -400,7 +402,12 @@ do{
 
             locar();
 
+        }else if (opcao == 2){
+
+            listarLocacoes(listaLocacao);
+            
         }
+        
 
     }else{
 
