@@ -178,55 +178,134 @@ cout << "Item removido!" << endl;
 
 }
 
+ 
 
-struct Locacao{
-      int codigo;
-     
-      double valorLocacao;
-      
-
+struct Locacao{ 
+   
+    Acervo *acervo;
+    Cliente *cliente; 
+   
 };
-
+list<Locacao>listaLocacao;
 
 void locar (){
-
-    Locacao locacao;
-    Acervo acervo;
-    Cliente cliente;
-
-    list<Cliente> listaCliente;
-    list<Acervo>listaAcervo;
-    list<Locacao>listaLocacao;
-
-    int codigo;
-   
-        cout << "Locação\n";       
     
+
+    Cliente *c;    
+    Acervo *a;
+
+    Locacao locacao;   
+    Acervo acervo;        
+ 
+
+     int codigo, codigos;
+    list<Cliente>::iterator it;
+
    
-        cout << "Digite o codigo do Item\n";
+    list<Acervo>::iterator its;
 
-        cin >> acervo.codigo;
 
-        
-        
-        cout << "Digite o codigo do Cliente\n";
+    cout << "Informe o código do Cliente: ";
+    cin >> codigo;
+    cout << endl;
 
-        cin >> cliente.codigo;
+     cout << "Informe o código do Acervo: ";
+    cin >> codigos;
+    cout << endl;
 
+    c = NULL;
+    a = NULL;
+
+  for(it = listaCliente.begin(); it != listaCliente.end(); it++){
+    if(it->codigo == codigo){
       
-         cout << acervo.codigo << "\n";
-         cout << acervo.nome << "\n";
-         cout << acervo.preco << "\n";
-         cout << acervo.qtde << "\n";
+        
+        c = &(*it);
+
+
+       
+        
+      break;
+    }
+  }
+
+for(its = listaAcervo.begin(); its != listaAcervo.end(); its++){
+    if(its->codigo == codigo){
 
         
-         cout << cliente.codigo << "\n";
-         cout << cliente.nome << "\n";
-         cout << cliente.idade << "\n";
-        
+        a = &(*its);
 
+      break;
+    }
+
+
+  }
+
+        if (c != NULL){
+        
+                    
+
+       
+                   
+  
+                    cout << " id do cliente: \n" << c -> codigo << endl  ;
+                   
+
+                    cout << " nome: \n" << c -> nome << endl  ;
+                   
+      
+                    cout << " idade: \n" << c -> idade  << endl ;
+                  
+                    cout << ".........................: \n" ;
+
+            if (a != NULL){
+
+                 
+
+       
+                 
+  
+                  cout << "id do item: \n"  << a -> codigo << endl  ;          
+                  
+
+                  cout << " nome: \n"  << a -> nome << endl ;
+                   
+      
+                  cout << " preço: \n" << a -> preco  << endl ;
+                  
+      
+                  cout << " quantidade: \n" << a -> qtde << endl  ;
+                    
+
+                  cout << ".........................: \n" ; 
+
+                
+
+            }
+
+                 
+        }
+
+                   cout << "Cliente selecionado --> "
+                << locacao.cliente->codigo << " - "
+                << locacao.cliente->nome << " - "
+                << locacao.cliente->idade
+                << endl;
+                cout << "" << endl;
+                    
+
+              cout << "Acervo selecionado --> "
+                << acervo.acervo->codigo << " - "
+                << acervo.acervo->nome << " - "
+                << acervo.acervo->preco << " - "
+                << acervo.acervo->qtde
+                << endl;
+                cout << "" << endl;
+ 
+            
+            
          listaLocacao.push_back(locacao);
-    
+         
                
 
 }
