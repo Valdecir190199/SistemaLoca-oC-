@@ -181,7 +181,7 @@ cout << "Item removido!" << endl;
  
 
 struct Locacao{ 
-   
+    int codigo;
     Acervo *acervo;
     Cliente *cliente;
     int qtde;
@@ -198,6 +198,12 @@ void locar (){
     Locacao locacao;
 
     int codigo, codigos;
+
+
+    
+    cout << "Informe o codigo da Locacao: ";
+    cin >> locacao.codigo;
+     cout << endl;
 
     cout << "Informe o código do Cliente: ";
     cin >> codigo;
@@ -311,6 +317,62 @@ void listarLocacoes(list<Locacao>& listaLocacao)
 
 }
 
+struct Devolucao
+{
+
+Locacao *locacao;
+
+
+};
+
+list<Devolucao> listaDevolucao;
+
+void devolucaoAcervo () 
+{
+    Devolucao devolucao;
+    Locacao *l;
+    Locacao locacao;   
+  
+  
+
+    int codigo;
+
+    cout << "Informe o id da Locacao\n";
+    cin >> codigo;
+
+    list<Locacao>::iterator it;
+    
+ 
+    
+    for(it = listaLocacao.begin(); it != listaLocacao.end(); it++){
+        if(it->codigo == codigo){
+       
+            l  = &(*it);
+            devolucao.locacao = l;
+            listaLocacao.erase(it);
+            
+           
+          devolucao.locacao -> acervo -> qtde =  (devolucao.locacao -> qtde) + (devolucao.locacao -> acervo -> qtde);
+        
+            
+          break;
+        }
+    
+      }
+
+   
+    
+    cout << "quantidade a ser devolvida\n" << devolucao.locacao -> qtde<< endl;   
+    cout << "Devolução realizada com Sucesso\n";
+    cout << " Titulo: " << devolucao.locacao -> acervo -> nome << endl  ;    
+    cout << " Cliente:" << devolucao.locacao -> cliente -> nome << endl  ;
+    
+
+
+
+    listaDevolucao.push_back(devolucao);
+
+}
 
 int main ()
 {
@@ -393,6 +455,7 @@ do{
         
         cout << "Cadastrar: 1 \n";
         cout << "Listar Locações 2 \n";
+         cout << "Realizar Devolucao 3 \n";
       
         int opcao;
 
@@ -406,6 +469,10 @@ do{
 
             listarLocacoes(listaLocacao);
             
+        }else if (opcao == 3){
+
+            devolucaoAcervo();
+
         }
         
 
